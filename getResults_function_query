@@ -1,0 +1,19 @@
+let
+    Source = (URL as any) => let
+        Source = Web.Contents(URL),
+        HTMLContent = Text.FromBinary(Source),
+        MatchIndex = Text.PositionOf(HTMLContent, "var matchmx ="),
+        StartIndex = MatchIndex+13, // Length of "var matchmx ="
+        EndIndex = Text.PositionOf(HTMLContent, "var fourspaces "),
+        MatchText = Text.Middle(HTMLContent, StartIndex, EndIndex - StartIndex),
+
+        ...
+
+        
+        #"Split Column by Delimiter1" = Table.SplitColumn(#"Changed Type3", "Score", Splitter.SplitTextByDelimiter(" ", QuoteStyle.Csv), {"Score.1", "Score.2", "Score.3", "Score.4", "Score.5"}),
+        #"Changed Type4" = Table.TransformColumnTypes(#"Split Column by Delimiter1",{{"Score.1", type text}, {"Score.2", type text}, {"Score.3", type text}, {"Score.4", type text}, {"Score.5", type text}}),
+        #"Renamed Columns1" = Table.RenameColumns(#"Changed Type4",{{"Score.1", "Set.1"}, {"Score.2", "Set.2"}, {"Score.3", "Set.3"}, {"Score.4", "Set.4"}, {"Score.5", "Set.5"}})
+    in
+        #"Renamed Columns1"
+in
+    Source

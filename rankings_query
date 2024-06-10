@@ -1,0 +1,14 @@
+let
+    Source = Web.Contents("source-website-here"),
+    HTMLContent = Text.FromBinary(Source),
+    #"Split Text" = Text.Split(HTMLContent, "href"),
+    #"Converted to Table" = Table.FromList(#"Split Text", Splitter.SplitTextByDelimiter(""">"), null, null, ExtraValues.Error),
+
+    ...
+
+    #"Calculated Total Years" = Table.TransformColumns(#"Calculated Age",{{"Birthday", each Duration.TotalDays(_) / 365, type number}}),
+    #"Rounded Down" = Table.TransformColumns(#"Calculated Total Years",{{"Birthday", Number.RoundDown, Int64.Type}}),
+    #"Renamed Columns1" = Table.RenameColumns(#"Rounded Down",{{"Birthday", "Age"}}),
+    #"Trimmed Text" = Table.TransformColumns(#"Renamed Columns1",{{"Name", Text.Trim, type text}})
+in
+    #"Trimmed Text"
