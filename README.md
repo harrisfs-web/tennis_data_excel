@@ -18,10 +18,10 @@ Snippets of the queries are included for demonstration purposes, as well as scre
 
 Here are some screenshots showcasing the final dashboard and user interface:
 
-![alt text](rankings.png)
-![alt text](results.png)
-![alt text](head2head_dashboard.png)
-![alt text](last5games_details.png)
+![alt text](screenshots/rankings.png)
+![alt text](screenshots/results.png)
+![alt text](screenshots/head2head_dashboard.png)
+![alt text](screenshots/last5games_details.png)
 
 ## Note on File Inclusion
 
